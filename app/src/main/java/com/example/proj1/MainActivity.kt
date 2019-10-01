@@ -8,20 +8,24 @@ class MainActivity : AppCompatActivity() {
 
     private var counter: Long = 0
     fun getStore() = getPreferences(Context.MODE_PRIVATE)
-
+    private var userAccount : String = ""
     override fun onCreate(savedInstanceState: Bundle?)
     {
+
+        this.userAccount = intent.extras?.get("username").toString()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         if(savedInstanceState != null){
-            counter = savedInstanceState.getLong(COUNTER_KEY,0)
+            updateCounter(savedInstanceState.getLong(userAccount,0))
+        }
+        else if(getStore().contains(userAccount))
+        {
+            updateCounter(getStore().getLong(userAccount,0))
         }
         addButton.setOnClickListener {
             counter++
             clickCounter.text = counter.toString()
-
-
             addButton.text = when (counter) {
                 1L -> "YEE"
                 in 2..9 -> addButton.text.toString().plus("!")
@@ -30,21 +34,24 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
+    private fun updateCounter(count: Long)
+    {
+        counter = count
+        clickCounter.text = counter.toString()
+    }
     override fun onPause()
     {
         super.onPause()
-        getStore().edit().putLong(COUNTER_KEY, counter).apply()
+        getStore().edit().putLong(userAccount, counter).apply()
     }
 
-    override fun onSaveInstanceState(outState: Bundle?){
-        outState?.run{
-            putLong(COUNTER_KEY, counter)
+    override fun onSaveInstanceState(outState: Bundle){
+        outState.run{
+            putLong(userAccount, counter)
         }
         super.onSaveInstanceState(outState)
     }
-
-    companion object{
-        private const val COUNTER_KEY = "counter"
-    }
+// companion object{
+  //      private const val COUNTER_KEY = "counter"
+    //}
 }
