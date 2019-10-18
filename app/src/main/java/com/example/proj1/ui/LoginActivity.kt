@@ -1,10 +1,11 @@
-package com.example.proj1
+package com.example.proj1.ui
 import android.content.Intent
 import kotlinx.android.synthetic.main.activity_login.*
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import com.example.proj1.R
 
 class LoginActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState:Bundle?) {
