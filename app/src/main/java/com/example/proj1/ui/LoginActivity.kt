@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import com.example.proj1.R
+import android.view.animation.AnimationUtils
+
 
 class LoginActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState:Bundle?) {
@@ -25,6 +27,10 @@ class LoginActivity : AppCompatActivity(){
         })
         loginButton.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java).apply { putExtra("username", loginUsernameEditTextInput.text)})
+            var animation = AnimationUtils.loadAnimation(this@LoginActivity, R.anim.magnify)
+            loginButton.startAnimation(animation)
+
+
         }
     }
 }

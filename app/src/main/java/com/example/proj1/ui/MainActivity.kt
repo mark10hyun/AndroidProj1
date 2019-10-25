@@ -2,6 +2,7 @@ package com.example.proj1.ui
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.animation.AnimationUtils
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.proj1.R
@@ -13,6 +14,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var countViewModel: CountViewModel
 
     private var counter: Long = 0
+
+
     private fun getUsername()= intent.extras?.get("username").toString().toLowerCase(Locale.US)
     //fun getStore() = getPreferences(Context.MODE_PRIVATE)
    // private var userAccount: String = ""
@@ -34,19 +37,24 @@ class MainActivity : AppCompatActivity() {
         }
 */
 
+        counter++
+        clickCounter.text = counter.toString()
+        addButton.text = when (counter) {
+            1L -> "YEE"
+            in 2..9 -> addButton.text.toString().plus("!")
+            else -> addButton.text
+        }
+
         addButton.setOnClickListener {
             countViewModel.setUserCount(getUsername(), counter+1)
-            /*
-            counter++
-            clickCounter.text = counter.toString()
-            addButton.text = when (counter) {
-                1L -> "YEE"
-                in 2..9 -> addButton.text.toString().plus("!")
-                else -> addButton.text
-            }
-            */
+
+            var animation = AnimationUtils.loadAnimation(this@MainActivity, R.anim.mixed)
+            addButton.startAnimation(animation)
+
+
 
         }
+
 
     }
 
