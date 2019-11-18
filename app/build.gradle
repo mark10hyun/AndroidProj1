@@ -18,7 +18,12 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            manifestPlaceholders = [usesCleartextTraffic: "true"]
+        }
         release {
+
+           manifestPlaceholders = [usesCleartextTraffic: "false"]
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -45,5 +50,8 @@ dependencies {
     //wrapping sharedpreferences in livedata
     implementation "com.github.ibrahimsn98:live-preferences:1.6"
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
-
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'com.google.android.gms:play-services-ads:18.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 }
